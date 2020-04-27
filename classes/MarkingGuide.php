@@ -71,3 +71,5 @@ class StudentPaper extends MarkingGuide {
     }
 }
 
+$newMarkingGuide = new MarkingGuide();
+$newStudentPaper = new StudentPaper();
