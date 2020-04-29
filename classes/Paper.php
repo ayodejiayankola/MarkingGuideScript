@@ -80,7 +80,8 @@ class StudentPaper{
 
 
 
-//created a new instance of the object
+
+
 $paper= new Paper();
 $MarkingGuide =new MarkingGuide($paper);
 $MarkingGuide->createMarkingGuide(); //create a new marking guide
