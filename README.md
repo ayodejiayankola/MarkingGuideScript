@@ -26,11 +26,11 @@ This is a console based command line marking guide app/script for each Subject t
 
 ### Marking Guide Class 
 **Note:**(a subject can have one marking guide)<br>
-Reference of class `Paper` into its class constructor  using dependency injection. 
+References class `Paper` into its class constructor  using dependency injection. 
 ### Student Class
 **Note:**(a student can only take a subject)<br>
 
-Reference of class `Paper` into its class constructor  using dependency injection. 
+References class `Paper` into its class constructor  using dependency injection. 
 
 ### Functionality/ App Menu
  - Create a new marking guide
