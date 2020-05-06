@@ -14,15 +14,10 @@ class Paper{
     public function getSubject(){
 
     }
-    public function getQuestions(){
-
-    }
-
 }
 class MarkingGuide{
-
     public $paper;
-    public function getMarkingGuide(Paper $paper){
+    public function createMarkingGuide(Paper $paper){
 
     }
 
@@ -30,16 +25,11 @@ class MarkingGuide{
 
 class StudentSubmission{
     public $paper;
-    public function getMarkingGuide(Paper $paper){
+    public function createStudentSubmission(Paper $paper){
 
     }
-
-
 }
 
-class MarkScript{
-
-}
 Class ConsoleApp
 {
     public $menu;
@@ -54,7 +44,6 @@ Class ConsoleApp
         $this->menu = new Menu();
         $this->markingGuide = new MarkingGuide();
         $this->studentSubmission = new StudentSubmission();
-        $this->markScript = new MarkScript();
     }
 
     //METHODS
