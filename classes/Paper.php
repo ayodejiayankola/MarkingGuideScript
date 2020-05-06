@@ -56,15 +56,11 @@ Class ConsoleApp
     }
 
     //Remove/Delete a marking guide
-    public function deleteMarkingGuide(){
+    public function deleteMarkingGuide($id){
     }
 
     //List all available marking guide
     public function listAllMarkingGuide(){
-    }
-
-    // Submit Student Paper
-    public function studentSubmission(){
     }
 
     //Mark Student Paper
