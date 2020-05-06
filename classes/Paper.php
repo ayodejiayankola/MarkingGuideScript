@@ -1,87 +1,89 @@
 <?php
 
-
 class Paper{
-    //PARAMETERS
-    protected $id;
-    protected $subject;
-    protected $question_no =[];
-    protected $correct_answer=[];
-    protected $choice_answer=[];
+    public $id;
+    public $subject;
+    public $questions= ["question_nos"=>"answers"] ;
+
+    public function __construct($id,$subject,$questions=["question_nos"=>"answers"])
+    {
+        $this->id=$id;
+        $this->subject=$subject;
+        $this->questions=["question_nos"=>"answers"];
+    }
+    public function getSubject(){
+
+    }
+    public function getQuestions(){
+
+    }
+
+}
+class MarkingGuide{
+
+    public $paper;
+    public function getMarkingGuide(Paper $paper){
+
+    }
+
+}
+
+class StudentSubmission{
+    public $paper;
+    public function getMarkingGuide(Paper $paper){
+
+    }
 
 
-    public function __construct($id,$subject,$question_no,$correct_answer,$choice_answer)
+}
+
+class MarkScript{
+
+}
+Class ConsoleApp
+{
+    public $menu;
+    private $markingGuide;
+    private $studentSubmission;
+    private $markScript;
+
+
+    public function __construct()
     {
 
+        $this->menu = new Menu();
+        $this->markingGuide = new MarkingGuide();
+        $this->studentSubmission = new StudentSubmission();
+        $this->markScript = new MarkScript();
     }
 
     //METHODS
     //Create a new marking guide
-    public function createMarkingGuide($id,$question_no,$correct_answer){
-
+    public function createMarkingGuide(){
     }
 
     //Store all marking guide
     public function storeAllMarkingGuide(){
-
     }
 
     //Remove/Delete a marking guide
-    public function deleteMarkingGuide($id){
-
+    public function deleteMarkingGuide(){
     }
 
     //List all available marking guide
     public function listAllMarkingGuide(){
-
     }
 
     // Submit Student Paper
-    public function studentPaper($id,$subject,$question_no,$choice_answer){
-
-
+    public function studentSubmission(){
     }
 
     //Mark Student Paper
-    public function markStudentPaper($choice_answer,$correct_answer){
-
+    public function markStudentPaper(){
     }
 
     //Quit(End the loop)
     public function quit(){
-
     }
-
 
 }
-
-class MarkingGuide{
-    private $paper;
-    public function __construct(Paper $paper)
-    {
-        $this->paper=$paper;
-    }
-
-    public function createMarkingGuide(){
-        $this->paper->newMarkingGuide();
-    }
-}
-class StudentPaper{
-    private $paper;
-    public function __construct(Paper $paper)
-    {
-        $this->paper=$paper;
-    }
-
-    public function createSubmission(){
-        $this->paper->studentPaper();
-    }
-}
-
-
-
-
-
-$paper= new Paper();
-$MarkingGuide =new MarkingGuide($paper);
-$MarkingGuide->createMarkingGuide(); //create a new marking guide
