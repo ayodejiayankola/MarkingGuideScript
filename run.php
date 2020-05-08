@@ -1,7 +1,5 @@
 <?php
+require_once 'classes/consoleApp.php';
 
-
-class Run
-{
-
-}
+$action = new ConsoleApp();
+$action->run();

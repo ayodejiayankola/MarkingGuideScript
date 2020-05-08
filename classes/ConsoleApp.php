@@ -1,6 +1,7 @@
 <?php
+require_once('Paper.php');
+require_once('menu.php');
 
-require_once('classes/Paper.php');
 
 Class ConsoleApp
 {
@@ -13,7 +14,7 @@ Class ConsoleApp
     {
 
         $this->menu = new Menu();
-        $this->run = new Run();
+//        $this->run = new Run();
         $this->markingGuide = new Paper();
         $this->studentSubmission = new Paper();
     }
@@ -55,7 +56,41 @@ Class ConsoleApp
         exit('Close Marking Guide');
     }
 
+    public function run()
+    {
+        while (true){
+            // Print the menu on console
+            $this->menu->showMenu();
+            // Read user choice
+            $selection = trim( fgets(STDIN) );
+            if( $selection == 5 ) {
+                break;
+            }
+            switch($selection){
+                case 1:
+                    $this->createMarkingGuide();
+                    break;
+                case 2:
+                    $this->deleteMarkingGuide();
+                    break;
+                case 3:
+                    $this->listAllMarkingGuide();
+                    break;
+                case 4:
+                    $this->StudentSubmission();
+                    break;
+                 case 5:
+                $this->markStudentPaper();
+                break;
+                case 6:
+                    $this->quit();
+                    break;
+                default:
+                    echo ("Input not understood, Please retry again...");
+                    break;
+            }
+        }
+    }
 }
 
-$obj = new ConsoleApp();
-//$obj->createMarkingGuide();
+
