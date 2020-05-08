@@ -1,6 +1,6 @@
 <?php
 
-require_once ('classes/paper.php');
+require_once('classes/Paper.php');
 
 Class ConsoleApp
 {
