@@ -3,19 +3,22 @@ class Paper{
     public $subjectArray = [];
     public $id;
     public $subject;
-    public $questions= ["question_nos"=>"answers"] ;
+    public $questions;
 
     public function __construct()
     {
         $this->id;
         $this->subject;
-        $this->questions=["question_nos"=>"answers"];
+        $this->questions=["question"=>"answer"];
     }
-    public function createSubject($subject,$questions=["question_nos"=>"answers"]){
-        if (!empty($subject) && !empty($questions=["question_nos"=>"answers"])) {
+    public function createSubject($subject,$questions=["question"=>"answer"]){
+        if (!empty($subject) && !empty($questions)) {
             $this->subject = filter_var($subject, FILTER_SANITIZE_STRING);
-            $this->questions = filter_var($questions = ["question_nos" => strtoupper("answers")], FILTER_SANITIZE_STRING);
-            return $this->subjectArray = (array)$this;
+            $this->questions = filter_var($questions=["question"=>"answer"], FILTER_SANITIZE_STRING);
+            $convert = $this->subjectArray = (array)$this;
+            return json_encode($convert);
+
         }
     }
 }
+

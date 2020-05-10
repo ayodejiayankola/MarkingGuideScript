@@ -6,7 +6,7 @@ require_once('menu.php');
 Class ConsoleApp
 {
     private $menu;
-    private $run;
+   // private $run;
     private $markingGuide;
     private $studentSubmission;
 
@@ -24,7 +24,8 @@ Class ConsoleApp
     public function createMarkingGuide($subject,$questions=["question_nos"=>"answers"]){
         $this->markingGuide=$subject;
         $this->markingGuide=$questions=["question_nos"=>"answers"];
-        return $this->markingGuide=(array)$this;
+        $convert = $this->markingGuide=(array)$this;
+        return json_encode($convert);
     }
 
     //Remove/Delete a marking guide
@@ -36,7 +37,8 @@ Class ConsoleApp
     //List all available marking guide
     public function listAllMarkingGuide()
     {
-     return $this->markingGuide;
+      $convert  = $this->markingGuide;
+      return json_encode($convert);
     }
 
     protected function StudentSubmission($subject, $questions=["question_nos"=>"answers"]){
