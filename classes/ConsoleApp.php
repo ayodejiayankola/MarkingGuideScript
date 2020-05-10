@@ -27,12 +27,19 @@ Class ConsoleApp
         $convert = $this->markingGuide=(array)$this;
         return json_encode($convert);
     }
+    public function getMarkingGuide($id){
+       return $this->subjectArray($id);
+    }
 
     //Remove/Delete a marking guide
     public function deleteMarkingGuide($id){
-        unset($this->markingGuide[$id]);
+
+        $subjectArray =[];
+        unset($subjectArray[$id]);
         return true;
+
     }
+
 
     //List all available marking guide
     public function listAllMarkingGuide()
@@ -48,9 +55,12 @@ Class ConsoleApp
     }
     //Mark Student Paper
     public function markStudentPaper(){
-        if($this->markingGuide === $this->studentSubmission){
-
-        }
+       //check the difference in the two array
+        $result=array_intersect($this->getMarkingGuide(),$this->StudentSubmission());
+        $newResult = count($result);
+        $markingGuideAnswersCount = count($this->getMarkingGuide());
+        $percentageResult = ($newResult/$this->$markingGuideAnswersCount )*100;
+         return $percentageResult;
     }
 
     //Quit(End the loop)
