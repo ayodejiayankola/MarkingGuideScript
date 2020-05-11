@@ -5,30 +5,26 @@ require_once('menu.php');
 
 Class ConsoleApp
 {
-    private $menu;
-   // private $run;
-    private $markingGuide;
-    private $studentSubmission;
+
+    public $menu;
+    public $markingGuide;
+    public $studentSubmission;
 
     public function __construct()
     {
 
         $this->menu = new Menu();
-//        $this->run = new Run();
         $this->markingGuide = new Paper();
-        $this->studentSubmission = new Paper();
+         $this->studentSubmission = new Paper();
     }
 
     //METHODS
     //Create a new marking guide
-    public function createMarkingGuide($subject,$questions=["question_nos"=>"answers"]){
+    public function createMarkingGuide($subject,$questions){
         $this->markingGuide=$subject;
-        $this->markingGuide=$questions=["question_nos"=>"answers"];
+        $this->markingGuide=$questions;
         $convert = $this->markingGuide=(array)$this;
         return json_encode($convert);
-    }
-    public function getMarkingGuide($id){
-       return $this->subjectArray($id);
     }
 
     //Remove/Delete a marking guide
@@ -48,7 +44,7 @@ Class ConsoleApp
       return json_encode($convert);
     }
 
-    protected function StudentSubmission($subject, $questions=["question_nos"=>"answers"]){
+    protected function StudentSubmission($subject, $questions){
         $this->studentSubmission=$subject;
         $this->studentSubmission=$questions=["question_nos"=>"answers"];
         return $this->studentSubmission=(array)$this;
@@ -106,3 +102,5 @@ Class ConsoleApp
 }
 
 
+$obj = new ConsoleApp();
+echo  $obj->createMarkingGuide('English', '');
