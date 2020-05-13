@@ -58,7 +58,7 @@ Class ConsoleApp
 
     }
     //Mark Student Paper
-    public function markStudentPaper(){
+    public function markStudentPaper($markingGuide, $studentSubmission){
        //check the difference in the two array
         $result=array_intersect($this->getMarkingGuide(),$this->StudentSubmission());
         $newResult = count($result);
@@ -84,19 +84,27 @@ Class ConsoleApp
             }
             switch($selection){
                 case 1:
-                    $this->createMarkingGuide('English', ['1'=>'a', '2'=>'5']);
+                    $subject=readline('Enter the subject name to be created ');
+                    $questions= readline('Enter question number with respective answer');
+                    $this->createMarkingGuide($subject,$questions);
                     break;
                 case 2:
-                    $this->deleteMarkingGuide();
+                    $subject=readline('Enter the subject name to be deleted ');
+                    $this->deleteMarkingGuide($subject);
                     break;
                 case 3:
+
                     $this->listAllMarkingGuide();
                     break;
                 case 4:
-                    $this->StudentSubmission();
+                    $subject=readline('Enter the subject name to be submit ');
+                    $questions= readline('Enter question number with respective answer');
+                    $this->StudentSubmission($subject,$questions);
                     break;
                  case 5:
-                $this->markStudentPaper();
+                     $markingGuide=readline('Enter the subject name to be created ');
+                     $studentSubmission= readline('Submit the student Paper');
+                $this->markStudentPaper($markingGuide, $studentSubmission);
                 break;
                 case 6:
                     $this->quit();
@@ -110,11 +118,11 @@ Class ConsoleApp
 }
 
 
-$obj = new ConsoleApp();
-$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
-//$obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
-//$obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
-//$obj->studentSubmission('physics', [
-//'1'=>'a', '2'=>'c']);
-echo  $obj->deleteMarkingGuide(1);
-//echo $obj->listAllMarkingGuide();
+//$obj = new ConsoleApp();
+//$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
+////$obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
+////$obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
+////$obj->studentSubmission('physics', [
+////'1'=>'a', '2'=>'c']);
+//echo  $obj->deleteMarkingGuide(1);
+////echo $obj->listAllMarkingGuide();
