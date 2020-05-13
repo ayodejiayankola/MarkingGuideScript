@@ -2,37 +2,47 @@
 require_once('Paper.php');
 require_once('menu.php');
 
-
 Class ConsoleApp
 {
-
     public $menu;
     public $markingGuide;
     public $studentSubmission;
-
     public function __construct()
     {
 
         $this->menu = new Menu();
         $this->markingGuide = new Paper();
-         $this->studentSubmission = new Paper();
+        $this->studentSubmission = new Paper();
     }
 
     //METHODS
     //Create a new marking guide
-    public function createMarkingGuide($subject,$questions){
-        $this->markingGuide=$subject;
-        $this->markingGuide=$questions;
-        $convert = $this->markingGuide=(array)$this;
-        return json_encode($convert);
+    public function createMarkingGuide($subject, $questions){
+        return $this->markingGuide->createSubject($subject, $questions);
+    }
+    public function storeMarkingGuide(){
+        return json_encode($this->markingGuide);
+
     }
 
-    //Remove/Delete a marking guide
-    public function deleteMarkingGuide($id){
 
-        $subjectArray =[];
-        unset($subjectArray[$id]);
-        return true;
+    //Remove/Delete a marking guide
+    public function deleteMarkingGuide($subject)
+    {
+
+        $markingGuideStore = array($this->storeMarkingGuide());
+        if( array_key_exists($subject,$markingGuideStore)) {
+            // remove item at index 1 which is 'for'
+            unset($markingGuideStore[$subject]);
+            // Print modified array
+            var_dump($markingGuideStore);
+            // Re-index the array elements
+            $arr2 = array_values($markingGuideStore);
+            // Print re-indexed array
+            //return true;
+        }else{
+            return $subject. ' Does not exist';
+        }
 
     }
 
@@ -40,14 +50,12 @@ Class ConsoleApp
     //List all available marking guide
     public function listAllMarkingGuide()
     {
-      $convert  = $this->markingGuide;
-      return json_encode($convert);
+        return $this->storeMarkingGuide();
     }
 
-    protected function StudentSubmission($subject, $questions){
-        $this->studentSubmission=$subject;
-        $this->studentSubmission=$questions=["question_nos"=>"answers"];
-        return $this->studentSubmission=(array)$this;
+    public function StudentSubmission($subject, $questions){
+        return $this->studentSubmission->createSubject($subject, $questions);
+
     }
     //Mark Student Paper
     public function markStudentPaper(){
@@ -76,7 +84,7 @@ Class ConsoleApp
             }
             switch($selection){
                 case 1:
-                    $this->createMarkingGuide();
+                    $this->createMarkingGuide('English', ['1'=>'a', '2'=>'5']);
                     break;
                 case 2:
                     $this->deleteMarkingGuide();
@@ -103,4 +111,10 @@ Class ConsoleApp
 
 
 $obj = new ConsoleApp();
-echo  $obj->createMarkingGuide('English', '');
+$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
+//$obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
+//$obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
+//$obj->studentSubmission('physics', [
+//'1'=>'a', '2'=>'c']);
+echo  $obj->deleteMarkingGuide(1);
+//echo $obj->listAllMarkingGuide();
