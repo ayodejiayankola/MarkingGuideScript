@@ -7,6 +7,7 @@ Class ConsoleApp
     public $menu;
     public $markingGuide;
     public $studentSubmission;
+
     public function __construct()
     {
 
@@ -20,37 +21,29 @@ Class ConsoleApp
     public function createMarkingGuide($subject, $questions){
         return $this->markingGuide->createSubject($subject, $questions);
     }
+
     public function storeMarkingGuide(){
-        return json_encode($this->markingGuide);
-
+        return $this->markingGuide->storage;
     }
-
 
     //Remove/Delete a marking guide
     public function deleteMarkingGuide($subject)
     {
-
-        $markingGuideStore = array($this->storeMarkingGuide());
-        if( array_key_exists($subject,$markingGuideStore)) {
+        if(array_key_exists($subject, $this->markingGuide->storage)) {
             // remove item at index 1 which is 'for'
-            unset($markingGuideStore[$subject]);
-            // Print modified array
-            var_dump($markingGuideStore);
-            // Re-index the array elements
-            $arr2 = array_values($markingGuideStore);
-            // Print re-indexed array
-            //return true;
+            $removed = $this->markingGuide->storage[$subject];
+            array_splice($this->markingGuide->storage, $subject, 1);
+            return 'removed '.json_encode($removed)."\n";
         }else{
             return $subject. ' Does not exist';
         }
-
     }
 
 
     //List all available marking guide
     public function listAllMarkingGuide()
     {
-        return $this->storeMarkingGuide();
+        return json_encode($this->storeMarkingGuide());
     }
 
     public function StudentSubmission($subject, $questions){
@@ -58,13 +51,39 @@ Class ConsoleApp
 
     }
     //Mark Student Paper
-    public function markStudentPaper($markingGuide, $studentSubmission){
-       //check the difference in the two array
-        $result=array_intersect($this->getMarkingGuide(),$this->StudentSubmission());
-        $newResult = count($result);
-        $markingGuideAnswersCount = count($this->getMarkingGuide());
-        $percentageResult = ($newResult/$this->$markingGuideAnswersCount )*100;
-         return $percentageResult;
+    public function markStudentPaper(){
+        $submissions =  $this->studentSubmission->storage;
+
+        $results = array_map(function($guide, $submission){
+            $result = array();
+            $result['subject'] = $guide['subject'];
+            $result['total_questions'] = count($guide['questions']);
+            if(isset($submission)){
+                $result['answered'] = count($submission['questions']);
+                $result['score'] =  count(array_intersect($guide['questions'], $submission['questions']));
+
+            }else{
+                $result['answered'] = 0;
+                $result['score'] =  0;
+            }
+            $result['percentage'] = ($result['score']/$result['total_questions'])*100;
+            return $result;
+        },
+            $this->markingGuide->storage, $this->studentSubmission->storage);
+
+        $this->outputResults($results);
+    }
+
+    public function outputResults($results){
+        foreach ($results as $result) {
+            echo "=====================================\n";
+            echo "|| ".strtoupper($result['subject'])."\n";
+            echo "|| Total Questions >> ".$result['total_questions']." \n";
+            echo "|| Total Answered >> ".$result['answered']." \n";
+            echo "|| Score >> ".$result['score']." \n";
+            echo "|| Percentage >> ".$result['percentage']."% \n";
+            echo "=====================================\n";
+        }
     }
 
     //Quit(End the loop)
@@ -84,8 +103,8 @@ Class ConsoleApp
             }
             switch($selection){
                 case 1:
-                    $subject=readline('Enter the subject name to be created ');
-                    $questions= readline('Enter question number with respective answer');
+                    $subject=readline('Enter the subject name to be created>>');
+                    $questions= readline('Enter question number with respective answer >>');
                     $this->createMarkingGuide($subject,$questions);
                     break;
                 case 2:
@@ -101,11 +120,11 @@ Class ConsoleApp
                     $questions= readline('Enter question number with respective answer');
                     $this->StudentSubmission($subject,$questions);
                     break;
-                 case 5:
-                     $markingGuide=readline('Enter the subject name to be created ');
-                     $studentSubmission= readline('Submit the student Paper');
-                $this->markStudentPaper($markingGuide, $studentSubmission);
-                break;
+                case 5:
+                    $markingGuide=readline('Enter the subject name to be created ');
+                    $studentSubmission= readline('Submit the student Paper');
+                    $this->markStudentPaper($markingGuide, $studentSubmission);
+                    break;
                 case 6:
                     $this->quit();
                     break;
@@ -118,11 +137,14 @@ Class ConsoleApp
 }
 
 
-//$obj = new ConsoleApp();
-//$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
-////$obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
-////$obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
-////$obj->studentSubmission('physics', [
-////'1'=>'a', '2'=>'c']);
-//echo  $obj->deleteMarkingGuide(1);
-////echo $obj->listAllMarkingGuide();
+$obj = new ConsoleApp();
+$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
+// $obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
+// $obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
+// $obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'d']);
+
+// $obj->studentSubmission('English', ['1'=>'a', '2'=>'d']);
+// $obj->markStudentPaper();
+
+// // echo  $obj->deleteMarkingGuide(0);
+// // echo $obj->listAllMarkingGuide();
