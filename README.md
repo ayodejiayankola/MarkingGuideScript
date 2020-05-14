@@ -40,4 +40,4 @@ References class `Paper` into its class constructor  using dependency injection.
  - Score a paper and output the score and a percentage
  - Quit!
 
-In order to start using the application, navigate to the `MarkingGuideScript` directory on the local machine and run `php  index.php` in your directory commandline/terminal to get started
+In order to start using the application, navigate to the `MarkingGuideScript` directory on the local machine and run `php  run.php` in your directory commandline/terminal to get started
