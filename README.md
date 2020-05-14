@@ -22,7 +22,6 @@ This is a console based command line marking guide app/script for each Subject t
 - Quit(End the loop )
 
 **Note:** Store Format: multidimensional-array with key value pair:Subject: question no, correct answer;
-[english]:1,A;2,C;3,D;4,A;5,D;6,D
 
 ### Marking Guide Class 
 **Note:**(a subject can have one marking guide)<br>

@@ -104,8 +104,8 @@ Class ConsoleApp
             switch($selection){
                 case 1:
                     $subject=readline('Enter the subject name to be created>>');
-                    $questions= readline('Enter question number with respective answer >>');
-                    $this->createMarkingGuide($subject,$questions);
+                    $questions= readline('Enter question number with respective answer using the format 1,A;2,C;3,B;4,A;5,D;  >>');
+                    $this->createMarkingGuide($subject,explode(" ", $questions));
                     break;
                 case 2:
                     $subject=readline('Enter the subject name to be deleted ');
@@ -117,13 +117,11 @@ Class ConsoleApp
                     break;
                 case 4:
                     $subject=readline('Enter the subject name to be submit ');
-                    $questions= readline('Enter question number with respective answer');
-                    $this->StudentSubmission($subject,$questions);
+                    $questions= readline('Enter question number with respective answer using the format 1,A;2,C;3,B;4,A;5,D;  >>');
+                    $this->StudentSubmission($subject,explode(" ", $questions));
                     break;
                 case 5:
-                    $markingGuide=readline('Enter the subject name to be created ');
-                    $studentSubmission= readline('Submit the student Paper');
-                    $this->markStudentPaper($markingGuide, $studentSubmission);
+                    $this->markStudentPaper();
                     break;
                 case 6:
                     $this->quit();
@@ -137,14 +135,14 @@ Class ConsoleApp
 }
 
 
-$obj = new ConsoleApp();
-$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
-// $obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
-// $obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
-// $obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'d']);
-
-// $obj->studentSubmission('English', ['1'=>'a', '2'=>'d']);
-// $obj->markStudentPaper();
-
-// // echo  $obj->deleteMarkingGuide(0);
-// // echo $obj->listAllMarkingGuide();
+//$obj = new ConsoleApp();
+//$obj->createMarkingGuide('English', ['1'=>'a', '2'=>'c']);
+//// $obj->createMarkingGuide('Mathematics', ['1'=>'a', '2'=>'c']);
+//// $obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'c']);
+//// $obj->createMarkingGuide('Chemistry', ['1'=>'a', '2'=>'d']);
+//
+//// $obj->studentSubmission('English', ['1'=>'a', '2'=>'d']);
+//// $obj->markStudentPaper();
+//
+//// // echo  $obj->deleteMarkingGuide(0);
+//// // echo $obj->listAllMarkingGuide();
