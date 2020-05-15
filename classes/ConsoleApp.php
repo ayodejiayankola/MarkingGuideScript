@@ -54,6 +54,10 @@ Class ConsoleApp
         return $this->studentSubmission->createSubject($subject, $questions);
 
     }
+
+    public function storeStudentSubmission(){
+        return $this->studentSubmission->storage ;
+    }
     //Mark Student Paper
     public function markStudentPaper(){
         $submissions =  $this->studentSubmission->storage;
@@ -133,7 +137,7 @@ Class ConsoleApp
                     $questions= readline('Enter question number with respective answer using the format 1,A;2,C;3,B;4,A;5,D;  >>');
                     $this->StudentSubmission($subject,explode(" ", $questions));
                     $myFile = fopen("db/studentSubmission.json", "a+") or die("Unable to open file!");
-                    $txt = json_encode($this->storeMarkingGuide()). ", \n" ;
+                    $txt = json_encode($this->storeStudentSubmission()). ", \n" ;
                     fwrite($myFile, $txt);
                     fclose($myFile);
 
