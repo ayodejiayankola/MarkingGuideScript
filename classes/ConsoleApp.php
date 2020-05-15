@@ -1,5 +1,7 @@
 <?php
 require_once ('db/markingGuide.json');
+
+//require_once('db');
 require_once('Paper.php');
 require_once('menu.php');
 
@@ -113,7 +115,6 @@ Class ConsoleApp
                     // so i created a file to store the array inputs
                     $myFile = fopen("db/markingGuide.json ", "a+") or die("Unable to open file!");
                     $txt = json_encode($this->storeMarkingGuide()). ", \n" ;
-
                     fwrite($myFile, $txt);
                     fclose($myFile);
                     break;
@@ -132,12 +133,17 @@ Class ConsoleApp
                     $questions= readline('Enter question number with respective answer using the format 1,A;2,C;3,B;4,A;5,D;  >>');
                     $this->StudentSubmission($subject,explode(" ", $questions));
                     $myFile = fopen("db/studentSubmission.json", "a+") or die("Unable to open file!");
-                    $txt = json_encode($this->storeMarkingGuide());
+                    $txt = json_encode($this->storeMarkingGuide()). ", \n" ;
                     fwrite($myFile, $txt);
                     fclose($myFile);
+
                     break;
                 case 5:
-                    var_dump($this->markStudentPaper());
+                    $this->markStudentPaper();
+                    $markingGuide = fopen("db/markingGuide.json", "r") or die("Unable to open file!");
+                    echo fread($markingGuide,filesize("db/markingGuide.json"));
+                    $studentSubmission= fopen("db/studentSubmission.json", "r") or die("Unable to open file!");
+                    echo fread($markingGuide,filesize("db/studentSubmission.json"));
                     break;
                 case 6:
                     $this->quit();
