@@ -125,12 +125,14 @@ Class ConsoleApp
                 case 2:
                     $subject=readline('Enter the subject name to be deleted ');
                     $this->deleteMarkingGuide($subject);
+                    $myFile = fopen("db/markingGuide.json ", "r") or die("Unable to open file!");
+
                     break;
                 case 3:
                     $this->listAllMarkingGuide();
                     $myFile = fopen("db/markingGuide.json", "r") or die("Unable to open file!");
                     echo fread($myFile,filesize("db/markingGuide.json"));
-
+                    fclose($myFile);
                     break;
                 case 4:
                     $subject=readline('Enter the subject name to be submit ');
