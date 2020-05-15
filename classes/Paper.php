@@ -17,7 +17,8 @@ class Paper{
             $newSubject = [
                 'subject' => $subject,
                 'questions' => $questions
-            ];
+
+            ] ;
             $existing = array_filter($this->storage, function($item) use($newSubject){
                 return $item['subject'] === $newSubject['subject'];
             });

@@ -25,7 +25,7 @@ Class ConsoleApp
     }
 
     public function storeMarkingGuide(){
-        return $this->markingGuide->storage;
+        return $this->markingGuide->storage ;
     }
 
     //Remove/Delete a marking guide
@@ -111,8 +111,9 @@ Class ConsoleApp
                    //Every time you run the script in the while loop, all objects are re-initiated, every data from the previous one is erased since its stored in an array.
                    // Every time you run the script, all objects are re-initiated, every data from the previous one is erased.
                     // so i created a file to store the array inputs
-                    $myFile = fopen("db/markingGuide.json", "a+") or die("Unable to open file!");
-                    $txt = json_encode($this->storeMarkingGuide());
+                    $myFile = fopen("db/markingGuide.json ", "a+") or die("Unable to open file!");
+                    $txt = json_encode($this->storeMarkingGuide()). ", \n" ;
+
                     fwrite($myFile, $txt);
                     fclose($myFile);
                     break;
