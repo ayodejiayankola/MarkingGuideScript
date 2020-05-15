@@ -1,7 +1,4 @@
 <?php
-require_once ('db/markingGuide.json');
-
-//require_once('db');
 require_once('Paper.php');
 require_once('menu.php');
 
