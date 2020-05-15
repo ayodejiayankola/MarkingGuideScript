@@ -125,8 +125,10 @@ Class ConsoleApp
                 case 2:
                     $subject=readline('Enter the subject name to be deleted ');
                     $this->deleteMarkingGuide($subject);
-                    $myFile = fopen("db/markingGuide.json ", "r") or die("Unable to open file!");
-
+                    $content = file_get_contents('db/markingGuide.json');
+                    $c = preg_replace('/apple/', '', $content);
+                    echo $c;
+                    file_put_contents($content, $c);
                     break;
                 case 3:
                     $this->listAllMarkingGuide();
