@@ -1,4 +1,5 @@
 <?php
+require_once ('db/markingGuide.json');
 require_once('Paper.php');
 require_once('menu.php');
 
@@ -20,6 +21,7 @@ Class ConsoleApp
     //Create a new marking guide
     public function createMarkingGuide($subject, $questions){
         return $this->markingGuide->createSubject($subject, $questions);
+
     }
 
     public function storeMarkingGuide(){
@@ -106,22 +108,35 @@ Class ConsoleApp
                     $subject=readline('Enter the subject name to be created>>');
                     $questions= readline('Enter question number with respective answer using the format 1,A;2,C;3,B;4,A;5,D;  >>');
                     $this->createMarkingGuide($subject,explode(" ", $questions));
+                   //Every time you run the script in the while loop, all objects are re-initiated, every data from the previous one is erased since its stored in an array.
+                   // Every time you run the script, all objects are re-initiated, every data from the previous one is erased.
+                    // so i created a file to store the array inputs
+                    $myFile = fopen("db/markingGuide.json", "a+") or die("Unable to open file!");
+                    $txt = json_encode($this->storeMarkingGuide());
+                    fwrite($myFile, $txt);
+                    fclose($myFile);
                     break;
                 case 2:
                     $subject=readline('Enter the subject name to be deleted ');
                     $this->deleteMarkingGuide($subject);
                     break;
                 case 3:
-
                     $this->listAllMarkingGuide();
+                    $myFile = fopen("db/markingGuide.json", "r") or die("Unable to open file!");
+                    echo fread($myFile,filesize("db/markingGuide.json"));
+
                     break;
                 case 4:
                     $subject=readline('Enter the subject name to be submit ');
                     $questions= readline('Enter question number with respective answer using the format 1,A;2,C;3,B;4,A;5,D;  >>');
                     $this->StudentSubmission($subject,explode(" ", $questions));
+                    $myFile = fopen("db/studentSubmission.json", "a+") or die("Unable to open file!");
+                    $txt = json_encode($this->storeMarkingGuide());
+                    fwrite($myFile, $txt);
+                    fclose($myFile);
                     break;
                 case 5:
-                    $this->markStudentPaper();
+                    var_dump($this->markStudentPaper());
                     break;
                 case 6:
                     $this->quit();
